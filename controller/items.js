@@ -7,7 +7,7 @@ const Items = require('warframe-items');
 router.get('/:category', function(req, res) {  
   const items = new Items({
     category:[req.params.category]
-  }, )
+  })
   res.send(items);
 });
 
