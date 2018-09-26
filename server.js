@@ -13,9 +13,12 @@ const initServer = () => {
   const users = require('./controller/users');
   const errorHandler = require('./utils/errorHandler.js');
   const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
-  
+  var bodyParser = require("body-parser"); 
+
+  app.use(bodyParser.urlencoded({ extended: false }));
+  app.use(bodyParser.json());
   app.use(cors());
-  app.use('authenticate',authenticate);
+  app.use('/account',authenticate);
   app.use('/', items);
   app.use('/images', images);
   app.use('/users', users);
@@ -28,9 +31,11 @@ const initServer = () => {
   app.listen(3000, () => {
     console.log("server up");
   })
-  
-  console.log(mongoUtil.getDb().db())
 }
 
 //Connect to mongoDB then initialize the server (route, controller, ...).
-mongoUtil.connectDbServer.then(initServer).catch(error => console.log(error));
+//mongoUtil.connectDbServer.then(initServer).catch(error => console.log(error));
+
+mongoUtil.initDbServer
+.then(mongoUtil.connectDbServer)
+.then(initServer);

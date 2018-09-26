@@ -2,8 +2,23 @@ var express = require('express');
 var router = express.Router();
 const config = require('../config/config');
 var mongoUtil = require('../utils/mongoUtils');
+var jwt = require('jsonwebtoken');
 
-router.post('/authenticate', function(req, res) {
+router.post('/create', function(req, res) {
+    // find the user
+    mongoUtil.getDb().db("todoFrame").collection("users").insertOne({
+      name: req.body.name,
+      password: req.body.password
+    },(err)=>{
+        if(err) throw err;
+        res.json({
+            success: true,
+            message: 'Enjoy your account!'
+        });
+    });
+}),
+
+router.post('/login', function(req, res) {
   // find the user
   mongoUtil.getDb().db("todoFrame").collection("users").findOne({
     name: req.body.name
@@ -20,11 +35,9 @@ router.post('/authenticate', function(req, res) {
             // create a token with only our given payload
             // we don't want to pass in the entire user since that has the password
             const payload = {
-                isLogin: true
+                isLoged: true
             };
-            var token = jwt.sign(payload, config.secret, {
-            expiresInMinutes: 1440 // expires in 24 hours
-            });
+            var token = jwt.sign(payload, config.secret);
             // return the information including token as JSON
             res.json({
                 success: true,
