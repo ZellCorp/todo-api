@@ -3,7 +3,6 @@ var router = express.Router();
 const config = require('../config/config');
 var mongoUtil = require('../utils/mongoUtils');
 var jwt = require('jsonwebtoken');
-
 router.post('/create', function(req, res) {
     // find the user
     mongoUtil.getDb().db("todoFrame").collection("users").insertOne({
@@ -37,7 +36,7 @@ router.post('/login', function(req, res) {
             const payload = {
                 isLoged: true
             };
-            var token = jwt.sign(payload, config.secret);
+            var token = jwt.sign(payload, config.secret, config.jwtSignOption);
             // return the information including token as JSON
             res.json({
                 success: true,

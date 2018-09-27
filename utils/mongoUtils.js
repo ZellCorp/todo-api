@@ -13,7 +13,10 @@ module.exports = {
             role : "readWrite",
             db   : "todoFrame"
           }]
-        }).catch((err)=>{if(err.codeName == "DuplicateKey")resolve();});
+        })
+        .catch((err)=>{
+          if(err.codeName == "DuplicateKey") resolve();
+        });
       } else reject(error);
     });
   }),
