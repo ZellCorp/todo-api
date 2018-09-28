@@ -1,4 +1,3 @@
-
 var express = require('express');
 var router = express.Router();
 const Items = require('warframe-items');
@@ -13,7 +12,7 @@ router.get('/:category', function(req, res) {
     })
     res.send(items);
   })
-  .catch((error)=>console.log(error));
+  .catch((error)=>res.send(error));
 });
 
 module.exports = router;

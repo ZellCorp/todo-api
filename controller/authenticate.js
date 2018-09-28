@@ -3,7 +3,26 @@ var router = express.Router();
 const config = require('../config/config');
 var mongoUtil = require('../utils/mongoUtils');
 var jwt = require('jsonwebtoken');
+const fs   = require('fs');
+var privateKEY  = fs.readFileSync('./config/private.key', 'utf8');
+
+
 router.post('/create', function(req, res) {
+    // find the user
+    mongoUtil.getDb().db("todoFrame").collection("users").insertOne({
+      name: req.body.name,
+      password: req.body.password
+    },(err)=>{
+        if(err) throw err;
+        res.json({
+            success: true,
+            message: 'Enjoy your account!'
+        });
+    });
+}),
+
+//the login page
+router.get('/login', function(req, res) {
     // find the user
     mongoUtil.getDb().db("todoFrame").collection("users").insertOne({
       name: req.body.name,
@@ -36,7 +55,7 @@ router.post('/login', function(req, res) {
             const payload = {
                 isLoged: true
             };
-            var token = jwt.sign(payload, config.secret, config.jwtSignOption);
+            var token = jwt.sign(payload, privateKEY, config.jwtSignOption);
             // return the information including token as JSON
             res.json({
                 success: true,

@@ -3,10 +3,10 @@ module.exports = {
     'mongoUrl': 'mongodb://root:toor@zelltest.com:27017',
     'mongoTodoUrl': 'mongodb://todo:password@zelltest.com:27017/todoFrame',
     "jwtSignOption": {
-        algorithm:"HS512",
-        expiresIn:"30d"
+        algorithm:"RS512",
+        expiresIn:"7d"
     },
     "jwtVerifyOption": {
-        algorithm:"HS512"
+        algorithm:"RS512"
     }
 };
