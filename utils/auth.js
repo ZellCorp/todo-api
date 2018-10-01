@@ -35,12 +35,11 @@ checkToken = (request) => {
 }
 
 checkUser = (req, res, next) => {
-    if ( req.url == '/login') 
+    if ( req.url == '/auth/login') 
         return next();
-  
     checkToken(req)
     .then(()=>next())
-    .catch(()=>res.redirect('/login'));
+    .catch(()=>res.redirect('/auth/login'));
 }
 
 module.exports = {

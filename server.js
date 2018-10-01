@@ -18,7 +18,7 @@ const initServer = () => {
   app.use(bodyParser.json());
   app.use(cors());
   app.use(auth.checkUser);
-  app.use('/',authenticate);
+  app.use('/auth',authenticate);
   app.use('/', items);
   app.use('/images', images);
   app.use('/users', users);
