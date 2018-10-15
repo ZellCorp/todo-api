@@ -39,7 +39,11 @@ checkUser = (req, res, next) => {
         return next();
     checkToken(req)
     .then(()=>next())
-    .catch(()=>res.redirect('/auth/login'));
+    .catch((error)=>res.json(
+        {
+            error: error
+        }
+    ));
 }
 
 module.exports = {

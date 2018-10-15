@@ -3,7 +3,7 @@ var router = express.Router();
 const config = require('../config/config');
 var mongoUtil = require('../utils/mongoUtils');
 var jwt = require('jsonwebtoken');
-const fs   = require('fs');
+const fs = require('fs');
 var privateKEY  = fs.readFileSync('./config/private.key', 'utf8');
 
 router.post('/create', function(req, res) {
