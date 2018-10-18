@@ -1,13 +1,16 @@
 //Export will allow to handle the server error.
 module.exports = {
-    genericError: (err, req, res, next) => {
-      console.error(err.stack + '\n\n');
-      
-      // jwt authentication error
-      if (err.name === 'UnauthorizedError')
-        res.status(401).json({ message: 'Invalid Token' });
-        
-        res.status(500).json({message: 'Something broke!'});
+    genericError: (error, req, res, next) => {
+      switch (error.name) {
+        case 'UnauthorizedError':// jwt authentication error
+          res.status(401).json(error);
+          break;
+        case 'internalServerError':// jwt authentication error
+          res.status(500).json({ message: error.message });
+          break;
+        default:
+          break;
+      }
     },
   
     customError: (err, req, res, next) => {

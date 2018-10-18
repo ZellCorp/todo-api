@@ -4,15 +4,11 @@ const Items = require('warframe-items');
 var auth = require('../utils/auth');
 
 // define the about route
-router.get('/:category', function(req, res) {
-  auth.checkToken(req)
-  .then(()=>{
-    const items = new Items({
-      category:[req.params.category]
-    })
-    res.send(items);
+router.get('/:category', function(req, res, next) {
+  const items = new Items({
+    category:[req.params.category]
   })
-  .catch((error)=>res.send(error));
+  res.send(items);
 });
 
 module.exports = router;

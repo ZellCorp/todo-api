@@ -16,7 +16,9 @@ checkTokenPresence = (request) => {
         // Handle token presented as a cookie parameter
         else if (request.cookies && request.cookies.token) 
             resolve(request.cookies.token);
-        reject("no token found"); 
+        let error = new Error('no token found');
+        error.name = 'UnauthorizedError';
+        reject(error); 
     });
 },
 
@@ -38,12 +40,8 @@ checkUser = (req, res, next) => {
     if ( req.url == '/auth/login') 
         return next();
     checkToken(req)
-    .then(()=>next())
-    .catch((error)=>res.json(
-        {
-            error: error
-        }
-    ));
+    .then(() => next())
+    .catch((error) => next(error));
 }
 
 module.exports = {

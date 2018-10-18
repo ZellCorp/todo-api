@@ -14,9 +14,9 @@ const initServer = () => {
   const errorHandler = require('./utils/errorHandler.js');
   var bodyParser = require("body-parser"); 
   
+  app.use(cors());
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(bodyParser.json());
-  app.use(cors());
   app.use(auth.checkUser);
   app.use('/auth',authenticate);
   app.use('/items', items);
