@@ -11,6 +11,7 @@ const initServer = () => {
   const images = require('./controller/images');
   const items = require('./controller/items');
   const users = require('./controller/users');
+  const wishlist = require('./controller/wishlist');
   const errorHandler = require('./utils/errorHandler.js');
   var bodyParser = require("body-parser"); 
   
@@ -22,6 +23,7 @@ const initServer = () => {
   app.use('/items', items);
   app.use('/images', images);
   app.use('/users', users);
+  app.use('/wishlist', wishlist);
   /*app.use(express.static(path.join(__dirname, 'dist')));
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist/index.html'));

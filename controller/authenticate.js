@@ -37,13 +37,13 @@ router.post('/login', function(req, res) {
               // create a token with only our given payload
               // we don't want to pass in the entire user since that has the password
               const payload = {
-                  isLoged: true
+                  userName: req.body.login
               };
               var token = jwt.sign(payload, privateKEY, config.jwtSignOption);
               // return the information including token as JSON
               res.json({
                   success: true,
-                  message: 'Enjoy your token!',
+                  user: req.body.login,
                   token: token
               });
           }
